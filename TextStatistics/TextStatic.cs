@@ -21,12 +21,12 @@ namespace TextStatistics
         /// </summary>
         public string textFilename { get; set; }
 
-        public TextStatic(string textFilename)
+        public void  getTextFile(string textFilename)
         {
             this.textFilename = textFilename;
             words = wordCounts();
         }
-
+       
         /// <summary>
         ///  Getting n longest words in text
         /// </summary>
@@ -82,11 +82,13 @@ namespace TextStatistics
 
                 while (index < text.Length)
                 {
+                    //karakter var mı yok mu onu kontrol ediyor. Varsa döngüden çıkıp wordcount'ı arttıryor.
                     while (index < text.Length && !char.IsWhiteSpace(text[index]))
                         index++;
 
                     wordCount++;
 
+                    //Boşlukları geçmek için. Birden fazla boşluk olduğu için while loop kullanıldı.
                     while(index < text.Length && char.IsWhiteSpace(text[index]))
                             index++;
                 }

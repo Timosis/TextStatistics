@@ -19,7 +19,7 @@ namespace TextStatistics
         * @param n how many items to return.
         * @return a list with the n longest words of the text.
         */
-        List<String> longestWords(int n);
+        List<string> longestWords(int n);
         /**
         * @return total number of words in the text.
         */
@@ -32,7 +32,9 @@ namespace TextStatistics
         /**
          * @return special sign  filtered and lowercased book
          */
-        String filterer();
+        string filterer();
+
+        void getTextFile(string textFilename);
 
         /// <summary>
         /// 

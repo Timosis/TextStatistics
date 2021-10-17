@@ -21,7 +21,8 @@ namespace TextStatistics
             return _frequency;
         }
 
-        public string word()
+        public String word()
+
         {
             return _word;
         }

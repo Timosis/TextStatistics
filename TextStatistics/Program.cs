@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,11 +12,20 @@ namespace TextStatistics
         static void Main(string[] args)
         {
 
-            TextStatic theRiverBoss = new TextStatic("The River Boss.txt");
+            var serviceProvider = new ServiceCollection()            
+            .AddSingleton<ITextStatics, TextStatic>()
+            .AddSingleton<IWordFrequency, WordFrequency>()
+            .BuildServiceProvider();
+
+            var textstaticsService = serviceProvider.GetService<ITextStatics>();
+
+            textstaticsService.getTextFile("The River Boss.txt");
+                        
+            //TextStatic theRiverBoss = new TextStatic();
 
             Console.WriteLine("\n-------------------{The River Boss}-----------------\n");
 
-            List<WordFrequency> freq = theRiverBoss.topWords(20);
+            List<WordFrequency> freq = textstaticsService.topWords(20);
 
             Console.WriteLine("Top 20 words are listed below");
             Console.WriteLine("\n");
@@ -25,15 +35,15 @@ namespace TextStatistics
             }
         
             Console.WriteLine("\n");
-            Console.WriteLine("Number of lines: " + theRiverBoss.numberOfLines()); 
+            Console.WriteLine("Number of lines: " + textstaticsService.numberOfLines()); 
             Console.WriteLine("\n");
-            Console.WriteLine("Number of words: " + theRiverBoss.numberOfWords());
+            Console.WriteLine("Number of words: " + textstaticsService.numberOfWords());
 
-            theRiverBoss.longestWords(20);
+            textstaticsService.longestWords(20);
 
             Console.WriteLine("\n");
             Console.WriteLine("Top 10 longest words are listed below");
-            List<String> longests = theRiverBoss.longestWords(10);
+            List<String> longests = textstaticsService.longestWords(10);
             Console.WriteLine("\n");
 
             foreach (var word in longests)
@@ -41,12 +51,12 @@ namespace TextStatistics
                 Console.WriteLine(word);
             }
 
-            TextStatic dracula = new TextStatic("Dracula.txt");
+            textstaticsService.getTextFile("Dracula.txt");
 
             Console.WriteLine("\n-------------------{Dracula}-----------------\n");
 
 
-            List<WordFrequency> freq2 = dracula.topWords(20);
+            List<WordFrequency> freq2 = textstaticsService.topWords(20);
 
             Console.WriteLine("Top 20 words are listed below");
             Console.WriteLine("\n");
@@ -57,15 +67,15 @@ namespace TextStatistics
 
 
             Console.WriteLine("\n");
-            Console.WriteLine("Number of lines: " + dracula.numberOfLines());
+            Console.WriteLine("Number of lines: " + textstaticsService.numberOfLines());
             Console.WriteLine("\n");
-            Console.WriteLine("Number of words: " + dracula.numberOfWords());
+            Console.WriteLine("Number of words: " + textstaticsService.numberOfWords());
 
-            dracula.longestWords(20);
+            textstaticsService.longestWords(20);
 
             Console.WriteLine("\n");
             Console.WriteLine("Top 10 longest words are listed below");
-            List<String> longests2 = dracula.longestWords(10);
+            List<String> longests2 = textstaticsService.longestWords(10);
             Console.WriteLine("\n");
 
             foreach (var word in longests2)
