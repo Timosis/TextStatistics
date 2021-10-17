@@ -34,6 +34,9 @@ namespace TextStatistics
          */
         string filterer();
 
+        /**
+       * @getting file text with file path.
+       */
         void getTextFile(string textFilename);
 
         /// <summary>
